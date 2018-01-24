@@ -5,19 +5,54 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="base.css" rel="stylesheet">
+        <link rel="stylesheet" href="./plugins/codemirror/codemirror.css">
+        <link rel="stylesheet" href="./plugins/codemirror/eclipse.css">
         <link href="index.css" rel="stylesheet">
-        <script src="jquery.min.js"></script>
-        <script src="jquery.serializejson.min.js"></script>
+        
+        <script src="./jquery.min.js"></script>
+        <script src="./plugins/codemirror/codemirror.min.js"></script>
+        <script src="./plugins/codemirror/javascript.min.js"></script>
+
     </head>
     <body>
-    
-<form>
-    <input type="text" name="title" value="Finding Loot" />
-    <input type="text" name="author[name]" value="John Smith" />
-    <input type="text" name="author[job]" value="Legendary Pirate" />
-</form>
-        
-    
+        <textarea id="J_json_editor" name="editor"></textarea>
+        <div class="options-box">
+            请选择请求的协议类型：
+            <label class="radio-protocol"><input type="radio" name="protocol" class="J_protocol" value="http" checked>http</label>
+            <label class="radio-protocol"><input type="radio" name="protocol" class="J_protocol" value="https">https</label>
+        </div>
+        <label class="options-box">
+            请添加当前接口的描述：<input class="options-input" type="text" name="des" id="J_description">
+        </label>
+        <button class="btn-mock">Mock It</button>
+
+        <div class="result-box flex">
+            <input type="text" name="result" id="J_result" class="mock-result flex-1" readonly value="https://ac-OnsG2j7w.clouddn.com/4f7b298c10f34379f4d7.json">
+            <button class="button-copy">复制</button>
+        </div>
+
+        <div class="request-box">
+            <h3>最近访问</h3>
+            <p class="request-box-tips">仅展示最近访问的10条，超过<b>7</b>天没有访问的接口会被删除</p>
+            <ul class="request-list">
+                <li class="request-item flex">
+                    <p class="flex-1">接口链接</p>
+                    <p class="flex-1">接口描述</p>
+                    <p class="request-item-remove">操作</p>
+                </li>
+                <li class="request-item flex">
+                    <p class="flex-1">https://ac-OnsG2j7w.clouddn.com/4f7b298c10f34379f4d7.json</p>
+                    <p class="flex-1">测试 =》 测试接口</p>
+                    <p class="request-item-remove"><button class="J_edit">编辑</button><button class="J_remove">删除</button></p>
+                </li>
+                <li class="request-item flex">
+                    <p class="flex-1">https://ac-OnsG2j7w.clouddn.com/4f7b298c10f34379f4d7.json</p>
+                    <p class="flex-1">测试 =》 测试接口</p>
+                    <p class="request-item-remove"><button class="J_edit">编辑</button><button class="J_remove">删除</button></p>
+                </li>
+            </ul>
+        </div>
+
     </body>
 <script src="index.js"></script>
 </html>
