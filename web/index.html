@@ -24,11 +24,11 @@
         <label class="options-box">
             请添加当前接口的描述：<input class="options-input" type="text" name="des" id="J_description">
         </label>
-        <button class="btn-mock">Mock It</button>
+        <button id="J_mock" class="btn-mock">Mock It</button>
 
         <div class="result-box flex">
-            <input type="text" name="result" id="J_result" class="mock-result flex-1" readonly value="https://ac-OnsG2j7w.clouddn.com/4f7b298c10f34379f4d7.json">
-            <button class="button-copy">复制</button>
+            <input type="text" name="result" id="J_result" class="mock-result flex-1" readonly value="">
+            <button class="button-copy J_copy">复制</button>
         </div>
 
         <div class="request-box">
@@ -40,18 +40,20 @@
                     <p class="flex-1">接口描述</p>
                     <p class="request-item-remove">操作</p>
                 </li>
-                <li class="request-item flex">
+                <li class="request-item flex J_history_item" data-mockid="12345" data-json="{'status': 1}" data-proctocol="https" data-des="">
                     <p class="flex-1">https://ac-OnsG2j7w.clouddn.com/4f7b298c10f34379f4d7.json</p>
                     <p class="flex-1">测试 =》 测试接口</p>
                     <p class="request-item-remove"><button class="J_edit">编辑</button><button class="J_remove">删除</button></p>
                 </li>
-                <li class="request-item flex">
+                <li class="request-item flex J_history_item" data-mockid="12345" data-json="{'status': 1}" data-proctocol="https" data-des="">
                     <p class="flex-1">https://ac-OnsG2j7w.clouddn.com/4f7b298c10f34379f4d7.json</p>
                     <p class="flex-1">测试 =》 测试接口</p>
                     <p class="request-item-remove"><button class="J_edit">编辑</button><button class="J_remove">删除</button></p>
                 </li>
             </ul>
         </div>
+
+        <input type="hidden" name="mockid" id="J_mock_id" value="">
 
     </body>
 <script src="index.js"></script>
