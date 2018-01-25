@@ -1,7 +1,7 @@
 (function(){
 
-    const MOCK_URL = "http://ac-OnsG2j7w.clouddn.com/8b90ee2250190dc4f7a1.json";
-    const REMOVE_HISTORY_URL = "http://ac-OnsG2j7w.clouddn.com/8b90ee2250190dc4f7a1.json";
+    const MOCK_URL = "http://127.0.0.1:5000/ajaxMock";
+    const REMOVE_HISTORY_URL = "http://127.0.0.1:5000/ajaxRemoveHistory";
     var resultUrl = "";
 
     class Toast {
@@ -51,8 +51,7 @@
     $(".J_edit").on("click", editHistory);
     $(".J_remove").on("click", removeHistory);
 
-
-
+    
     function mockHander(){
         var jsonText = editor.getValue();
         var protocol = $(".J_protocol:checked").val();
@@ -79,8 +78,8 @@
 
         $.getJSON(MOCK_URL, { jsonText: jsonText, protocol: protocol, des: des, mockId: mockId}, function (res) {
             if(res.status == 1){
-                $("#J_result").val(res.data.url);
-                $("#J_mock_id").val(res.data.mockid);
+                $("#J_result").val(res.data.mockUrl);
+                $("#J_mock_id").val(res.data.mockId);
                 Toast.open("Mock成功！")
             }else{
                 Toast.open(res.info)
