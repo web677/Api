@@ -4,6 +4,9 @@ const crypto = require("crypto")
 
 const baseUrl = "://api.eshengeshu.com/mock/"
 
+const Mock = require('../DB/mock')
+const DB = require('./CommonMongodbModel')
+
 function ajaxReturn(status = 1, info = "success", data = {}) {
     return {
         status: status,
@@ -13,15 +16,41 @@ function ajaxReturn(status = 1, info = "success", data = {}) {
 }
 
 const IndexModel = async function (data) {
-    let fileName = data.mockId || crypto.randomBytes(8).toString("hex")
+    let mockId = data.mockId || crypto.randomBytes(8).toString("hex")
     var result
 
-    try{
-        fs.writeFileSync(path.resolve(__dirname, `../JSON/${fileName}.json`), data.jsonText)
-        return ajaxReturn(1, "success", { mockUrl: `${data.protocol}${baseUrl}${fileName}.json`, mockId: fileName })
-    }catch(e){
-        return ajaxReturn(0, `Mock出错，请重试`)
+    let exsits = await DB.find({ mockId: mockId}, Mock)
+
+    if (exsits.code === 4001){
+        console.log(data.protocol)
+        result = await DB.add({
+            mockId: mockId,
+            createTime: new Date().getTime(),
+            lastVisitTime: new Date().getTime(),
+            des: data.des,
+            protocol: data.protocol,
+            jsonText: data.jsonText,
+            url: `${data.protocol}${baseUrl}${mockId}.json`
+        }, Mock)
+    }else{
+        result = await DB.update({
+            mockId: mockId,
+            newValue: {
+                createTime: new Date().getTime(),
+                lastVisitTime: new Date().getTime(),
+                des: data.des,
+                protocol: data.protocol,
+                jsonText: data.jsonText,
+                url: `${data.protocol}${baseUrl}${mockId}.json`
+            }
+        }, Mock)
     }
+
+    if(result !== 3001 && result !== 5001){
+        return ajaxReturn(0, `Mock出错：${result}`)
+    }
+
+    return ajaxReturn(1, "success", { mockUrl: `${data.protocol}${baseUrl}${mockId}.json`, mockId: mockId })
 
 }
 

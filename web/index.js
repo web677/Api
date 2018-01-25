@@ -2,6 +2,7 @@
 
     const MOCK_URL = "http://127.0.0.1:5000/ajaxMock";
     const REMOVE_HISTORY_URL = "http://127.0.0.1:5000/ajaxRemoveHistory";
+    const INIT_HISTORY_URL = "http://127.0.0.1:5000/ajaxGetHistory";
     var resultUrl = "";
 
     class Toast {
@@ -46,12 +47,13 @@
 }`)
     editor.setSize("100%", 400);
 
+    initHistory();
     $("#J_mock").on("click", mockHander);
     $(".J_copy").on("click", copyResult);
-    $(".J_edit").on("click", editHistory);
-    $(".J_remove").on("click", removeHistory);
+    $(document).on("click", ".J_edit", editHistory)
+               .on("click", ".J_remove", removeHistory);
 
-    
+
     function mockHander(){
         var jsonText = editor.getValue();
         var protocol = $(".J_protocol:checked").val();
@@ -115,9 +117,28 @@
 
         $("#J_mock_id").val(mockId);
         editor.setValue(JSON.parse(value));
-        $(`.J_protocol[value=${protocol}]`).prop("checked", true);
+        $(`.J_protocol[value='${protocol}']`).prop("checked", true);
         $("#J_description").val(des);
 
+    }
+
+    function initHistory() {
+        $.getJSON(INIT_HISTORY_URL, function(res){
+            if(res.status == 1){
+                console.log(res.data.history)
+                var _historyHtml = "";
+                res.data.history.forEach(function(v){
+                    _historyHtml += `
+                        <li class="request-item flex J_history_item" data-mockid='${v.mockId}' data-json='${v.jsonText}' data-protocol="${v.protocol}" data-des="${v.des}" data-invalid="${v.goingInvalid}">
+                            <p class="flex-1">${v.url}</p>
+                            <p class="flex-1">${v.des}</p>
+                            <p class="request-item-remove"><button class="J_edit">编辑</button><button class="J_remove">删除</button></p>
+                        </li>
+                    `
+                })
+                $(".J_history").append(_historyHtml);
+            }
+        })
     }
 
     function removeHistory(){

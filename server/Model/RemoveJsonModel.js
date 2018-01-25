@@ -1,5 +1,5 @@
-const fs = require("fs")
-const path = require("path")
+const Mock = require('../DB/mock')
+const DB = require('./CommonMongodbModel')
 
 function ajaxReturn(status = 1, info = "success", data = {}) {
     return {
@@ -10,22 +10,25 @@ function ajaxReturn(status = 1, info = "success", data = {}) {
 }
 
 const RemoveJsonModel = async function (data) {
-    let fileName = data.mockId
+    let _mockId = data.mockId
 
-    if (!fileName){
+    if (!_mockId){
         return ajaxReturn(0, "接口不存在！")
     }
 
-    if (!fs.existsSync(path.resolve(__dirname, `../JSON/${fileName}.json`))){
+    let _result = await DB.find({ mockId: _mockId }, Mock)
+
+    if(_result.code !== 2001){
         return ajaxReturn(0, "接口不存在！")
     }
 
-    try {
-        fs.unlinkSync(path.resolve(__dirname, `../JSON/${fileName}.json`))
-        return ajaxReturn(1, "删除成功！")
-    } catch (e) {
-        return ajaxReturn(0, `未知错误，请重试`)
+    let result = await DB.delete({ mockId: _mockId }, Mock)
+
+    if(result === 3001){
+        return ajaxReturn(1, "success")
     }
+
+    return ajaxReturn(0, "未知错误")
 
 }
 

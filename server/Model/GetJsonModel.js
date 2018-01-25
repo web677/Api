@@ -1,5 +1,5 @@
-const fs = require("fs")
-const path = require("path")
+const Mock = require('../DB/mock')
+const DB = require('./CommonMongodbModel')
 
 function ajaxReturn(status = 1, info = "success", data = {}) {
     return {
@@ -9,21 +9,36 @@ function ajaxReturn(status = 1, info = "success", data = {}) {
     }
 }
 
-const GetJsonModel = async function (fileName) {
+const GetJsonModel = async function (mockId) {
 
-    if (!fileName) {
+    if (!mockId) {
         return 404
     }
 
-    if (!fs.existsSync(path.resolve(__dirname, `../JSON/${fileName}`))) {
+    if (!/(\.json){1}$/.test(mockId)){
         return 404
     }
 
-    try {
-        return JSON.parse(JSON.stringify(fs.readFileSync(path.resolve(__dirname, `../JSON/${fileName}`)).toString()))
-    } catch (e) {
+    let _mockId = mockId.replace(/(\.json){1}$/, "")
+
+    let exsits = await DB.find({ mockId: _mockId}, Mock)
+
+    if (exsits.code === 4001) {
+        return 404
+    }
+
+    if (exsits.code === 4002) {
         return 500
     }
+
+    DB.update({
+        mockId: mockId,
+        newValue: {
+            lastVisitTime: new Date().getTime()
+        }
+    }, Mock)
+
+    return exsits.result[0].jsonText
 
 }
 

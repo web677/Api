@@ -3,6 +3,7 @@ const koaRouter = require("koa-router")()
 
 const IndexModel = require("../Model/IndexModel")
 const RemoveJsonModel = require("../Model/RemoveJsonModel")
+const GetHistoryModel = require("../Model/GetHistoryModel")
 
 const Index = async ctx => {
     ctx.response.type = 'html'
@@ -19,10 +20,15 @@ const RemoveJson = async ctx => {
     ctx.response.body = result    
 }
 
+const GetHistory = async ctx => {
+    let result = await GetHistoryModel(ctx.query)
+    ctx.response.body = result  
+}
 
 koaRouter
     .get(["", "index"], Index)
     .get("ajaxMock", AjaxMock)
     .get("ajaxRemoveHistory", RemoveJson)
+    .get("ajaxGetHistory", GetHistory)
 
 module.exports = koaRouter
