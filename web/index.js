@@ -1,8 +1,8 @@
 (function(){
 
-    const MOCK_URL = "http://127.0.0.1:5000/ajaxMock";
-    const REMOVE_HISTORY_URL = "http://127.0.0.1:5000/ajaxRemoveHistory";
-    const INIT_HISTORY_URL = "http://127.0.0.1:5000/ajaxGetHistory";
+    const MOCK_URL = "//api.eshengeshu.com/ajaxMock";
+    const REMOVE_HISTORY_URL = "//api.eshengeshu.com/ajaxRemoveHistory";
+    const INIT_HISTORY_URL = "//api.eshengeshu.com/ajaxGetHistory";
     var resultUrl = "";
 
     class Toast {
