@@ -34,16 +34,18 @@
         smartIndent: true,
         indentUnit: 4,
         tabSize: 4,
-        theme: "eclipse"
+        theme: "eclipse",
+        gutters: ["CodeMirror-lint-markers"],
+        lint: true
     });
 
     editor.setValue(
 `{
-    status: 1,
-    data: {
+    "status": 1,
+    "data": {
 
     },
-    info: "success"
+    "info": "success"
 }`)
     editor.setSize("100%", 400);
 
@@ -62,6 +64,11 @@
 
         if (jsonText == ""){
             Toast.open("请输入需要mock的json数据");
+            return
+        }
+
+        if (CodeMirror.lint.json(jsonText).length > 0){
+            Toast.open("输入json数据格式有误");
             return
         }
 
