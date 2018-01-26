@@ -26,7 +26,8 @@ var mockSchema = new mongoose.Schema({
         des: String,
         jsonText: String,
         protocol: String,
-        url: String
+        url: String,
+        sessionid: String
     }, {
         collection: "mock"
     })
