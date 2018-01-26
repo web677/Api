@@ -9,9 +9,9 @@ function ajaxReturn(status = 1, info = "success", data = {}) {
     }
 }
 
-const GetHistoryModel = async function (mockId) {
+const GetHistoryModel = async function (sessionid) {
 
-    let exsits = await DB.find({}, Mock)
+    let exsits = await DB.find({ sessionid: sessionid}, Mock)
 
     if (exsits.code !== 2001){
         return ajaxReturn(0, "暂无访问记录")

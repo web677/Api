@@ -15,7 +15,7 @@ function ajaxReturn(status = 1, info = "success", data = {}) {
     }
 }
 
-const IndexModel = async function (data) {
+const IndexModel = async function (data, sessionid) {
     let mockId = data.mockId || crypto.randomBytes(8).toString("hex")
     var result
 
@@ -30,7 +30,8 @@ const IndexModel = async function (data) {
             des: data.des,
             protocol: data.protocol,
             jsonText: data.jsonText,
-            url: `${data.protocol}${baseUrl}${mockId}.json`
+            url: `${data.protocol}${baseUrl}${mockId}.json`,
+            sessionid: sessionid
         }, Mock)
     }else{
         result = await DB.update({
@@ -41,7 +42,8 @@ const IndexModel = async function (data) {
                 des: data.des,
                 protocol: data.protocol,
                 jsonText: data.jsonText,
-                url: `${data.protocol}${baseUrl}${mockId}.json`
+                url: `${data.protocol}${baseUrl}${mockId}.json`,
+                sessionid: sessionid
             }
         }, Mock)
     }
