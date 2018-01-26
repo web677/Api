@@ -22,11 +22,11 @@ const IndexModel = async function (data, sessionid) {
     let exsits = await DB.find({ mockId: mockId}, Mock)
 
     if (exsits.code === 4001){
-        console.log(data.protocol)
+
         result = await DB.add({
             mockId: mockId,
-            createTime: new Date().getTime(),
-            lastVisitTime: new Date().getTime(),
+            createTime: new Date(),
+            lastVisitTime: new Date(),
             des: data.des,
             protocol: data.protocol,
             jsonText: data.jsonText,
@@ -37,8 +37,7 @@ const IndexModel = async function (data, sessionid) {
         result = await DB.update({
             mockId: mockId,
             newValue: {
-                createTime: new Date().getTime(),
-                lastVisitTime: new Date().getTime(),
+                lastVisitTime: new Date(),
                 des: data.des,
                 protocol: data.protocol,
                 jsonText: data.jsonText,

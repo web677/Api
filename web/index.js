@@ -3,6 +3,9 @@
     const MOCK_URL = "//api.eshengeshu.com/ajaxMock";
     const REMOVE_HISTORY_URL = "//api.eshengeshu.com/ajaxRemoveHistory";
     const INIT_HISTORY_URL = "//api.eshengeshu.com/ajaxGetHistory";
+    // const MOCK_URL = "//127.0.0.1:5000/ajaxMock";
+    // const REMOVE_HISTORY_URL = "//127.0.0.1:5000/ajaxRemoveHistory";
+    // const INIT_HISTORY_URL = "//127.0.0.1:5000/ajaxGetHistory";
     var resultUrl = "";
 
     class Toast {
@@ -132,7 +135,6 @@
     function initHistory() {
         $.getJSON(INIT_HISTORY_URL, function(res){
             if(res.status == 1){
-                console.log(res.data.history)
                 var _historyHtml = "";
                 res.data.history.forEach(function(v){
                     _historyHtml += `

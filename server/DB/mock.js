@@ -21,15 +21,16 @@ var mockSchema = new mongoose.Schema({
             type: String,
             unique: true
         },
-        createTime: Number,
-        lastVisitTime: Number,
+        createTime: Date,
+        lastVisitTime: Date,
         des: String,
         jsonText: String,
         protocol: String,
         url: String,
         sessionid: String
     }, {
-        collection: "mock"
+        collection: "mock",
+        timestamps: { createdAt: "createTime"}
     })
 
 var Mock = mongoose.model('mock', mockSchema)

@@ -32,9 +32,9 @@ const GetJsonModel = async function (mockId) {
     }
 
     DB.update({
-        mockId: mockId,
+        mockId: _mockId,
         newValue: {
-            lastVisitTime: new Date().getTime()
+            lastVisitTime: new Date()
         }
     }, Mock)
 

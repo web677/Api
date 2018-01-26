@@ -10,7 +10,7 @@ rule.hour = [0, 6, 12, 18]
 let j = schedule.scheduleJob(rule, async function () {
 
     try{
-        var timer = new Date().getTime()
+        var timer = new Date()
 
         let mocks = await DB.find({}, Mock)
 

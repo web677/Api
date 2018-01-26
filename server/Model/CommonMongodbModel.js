@@ -47,6 +47,7 @@ module.exports = {
     find: async (query, Model) => {
 
         let result = await Model.find(query)
+            .sort({"lastVisitTime": -1})
             .then(result => {
                 if (result.length == 0) {
                     return {
