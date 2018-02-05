@@ -24,7 +24,7 @@ let j = schedule.scheduleJob(rule, async function () {
         }
 
         mocks.result.forEach(v => {
-            if (timer - v.lastVisitTime > 1000 * 60 * 60 * 24 * 7) {
+            if (timer - v.lastVisitTime > 1000 * 60 * 60 * 24 * 30) {
                 DB.delete({mockId: v.mockId}, Mock)
             }
         })

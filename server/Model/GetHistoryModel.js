@@ -26,7 +26,7 @@ const GetHistoryModel = async function (sessionid) {
             jsonText: JSON.stringify(v.jsonText),
             protocol: v.protocol,
             url: v.url,
-            goingInvalid: (new Date() - v.lastVisitTime) > 1000 * 60 * 60 * 24 * 6 ? 1 : 0
+            goingInvalid: (new Date() - v.lastVisitTime) > 1000 * 60 * 60 * 24 * 23 ? 1 : 0
         })
     })
 
